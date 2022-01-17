@@ -1,0 +1,18 @@
+[Unit]
+Description=relocale redirection service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/relocale --config %i
+ProtectSystem=strict
+ReadOnlyPaths=/etc/relocale
+WorkingDirectory=/etc/relocale
+TimeoutStopSec=20
+KillMode=mixed
+Restart=on-failure
+User=relocale
+Group=relocale
+
+[Install]
+WantedBy=multi-user.target
