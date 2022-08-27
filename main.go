@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -52,7 +51,7 @@ func main() {
 		cf = res
 	}
 
-	content, err := ioutil.ReadFile(cf)
+	content, err := os.ReadFile(cf)
 	if err != nil {
 		log.Fatalf("Unable to read file: %s", err.Error())
 	}
