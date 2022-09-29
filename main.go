@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"log"
 	"net/http"
 	"net/url"
@@ -9,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/jessevdk/go-flags"
+	"github.com/urfave/cli/v2"
 	"golang.org/x/text/language"
 
 	"github.com/lukaswrz/relocale/config"
@@ -20,35 +19,41 @@ type options struct {
 }
 
 func main() {
-	opts := options{}
-
-	args, err := flags.Parse(&opts)
-	if err != nil {
-		os.Exit(1)
-	}
-
-	if len(args) > 0 {
-		log.Fatal(errors.New("Unexpected operand(s)"))
-	}
-
 	var cf string
-	if opts.Config == "" {
-		res := config.Locate()
 
-		if res == "" {
-			log.Fatal(errors.New("Configuration file not found"))
+	app := &cli.App{
+		Name:  "relocale",
+		Usage: "redirect requests via the HTTP Accept-Language header",
+		Flags: []cli.Flag{
+			&cli.StringFlag{
+				Name:        "config",
+				Aliases:     []string{"c"},
+				Usage:       "configuration file",
+				Destination: &cf,
+			},
+		},
+		Action: func(c *cli.Context) error {
+			return nil
+		},
+	}
+
+	app.Setup()
+
+	if err := app.Run(os.Args); err != nil {
+		log.Fatalf("Error: %s", err.Error())
+	}
+
+	if cf == "" {
+		cf = config.Locate()
+
+		if cf == "" {
+			log.Fatal("Unable to locate configuration file")
 		}
-
-		cf = res
 	} else {
-		res := opts.Config
-
-		_, err := os.Stat(res)
+		_, err := os.Stat(cf)
 		if err != nil {
 			log.Fatalf("Specified configuration file not accessible: %s", err.Error())
 		}
-
-		cf = res
 	}
 
 	content, err := os.ReadFile(cf)
