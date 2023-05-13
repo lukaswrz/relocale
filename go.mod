@@ -3,9 +3,9 @@ module github.com/lukaswrz/relocale
 go 1.17
 
 require (
-	github.com/BurntSushi/toml v1.1.0
-	github.com/urfave/cli/v2 v2.17.1
-	golang.org/x/text v0.3.7
+	github.com/BurntSushi/toml v1.2.1
+	github.com/urfave/cli/v2 v2.25.3
+	golang.org/x/text v0.9.0
 )
 
 require (
