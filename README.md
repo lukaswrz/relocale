@@ -81,8 +81,6 @@ server {
     # Change this to match your server's name or domain.
     server_name example.com;
 
-    charset utf-8;
-
     # This matches any path without the available locales 'en' and 'de' at the
     # start.
     location ~ ^/(?!(de|en)) {
