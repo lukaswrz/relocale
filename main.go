@@ -11,7 +11,7 @@ import (
 	"github.com/urfave/cli/v2"
 	"golang.org/x/text/language"
 
-	"github.com/lukaswrz/relocale/config"
+	"hack.moontide.ink/lukas/relocale/config"
 )
 
 type options struct {

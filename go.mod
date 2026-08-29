@@ -1,4 +1,4 @@
-module github.com/lukaswrz/relocale
+module hack.moontide.ink/lukas/relocale
 
 go 1.17
 
